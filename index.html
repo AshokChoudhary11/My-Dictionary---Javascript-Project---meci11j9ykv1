@@ -1,1 +1,35 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <nav onload="insertDefaultValue()">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfVKy-e4qK1VeFh09OUpqlhn8govsbn9RNQQ&usqp=CAU" width="200px">
+        <button id="redirect" onclick="handleHistoryClick()">History</button>
+    </nav>
+    <div id="search-form-body">
+        <div class="form-heading">Search For New Word </div>
+        <div>
+            <input placeholder="Search Word" id="search-word-input"/>
+            <button id="search-button" onclick="searchWordHandler()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/1200px-Magnifying_glass_icon.svg.png" width="20px"  alt="glass image"/>
+        </button>
+        </div>
+        <div id="result">
+            Meaning of the word
+        </div>
+    </div>
+    
+    
+    <div id="history-form-body">
+    
+    </div>
+    <script src="./App.js"></script>
+    
+</body>
+</html>
