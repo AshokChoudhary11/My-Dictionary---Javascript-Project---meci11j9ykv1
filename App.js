@@ -1,74 +1,110 @@
-let showingHistory = false;
-const historyButton = document.getElementById('redirect')
+function historyPage() {
+  
+    window.location.href = "history.html";
+  }
+  
+document.addEventListener("DOMContentLoaded", function() {
+  var form = document.getElementById("inputForm");
+  var userInput = document.getElementById("user_input");
 
+  form.addEventListener("submit", function(event) {
+    event.preventDefault(); 
 
-const handleHistoryClick = () => {
-    if (showingHistory) {
-        document.getElementById('redirect').innerText = 'History';
-        document.getElementById('search-form-body').style.display = 'flex';
-        document.getElementById('history-form-body').style.display = 'none';
-        showingHistory = false;
-    } else {
-        document.getElementById('redirect').innerText = 'Search';
-        document.getElementById('search-form-body').style.display = 'none';
-        document.getElementById('history-form-body').style.display = 'flex';
-        let oldValue = localStorage.getItem('search-word-experiment')
-        if (oldValue) {
-            oldValue = JSON.parse(oldValue)
-        }
-        document.getElementById('history-form-body').innerHTML = '';
-        oldValue.forEach((oldSearch) => {
-            document.getElementById('history-form-body').innerHTML +=
-                `<div class="history-card">
+    var word = userInput.value;
+    if(word=="")
+      {
+        var hideButton = document.getElementById("container");
+      
+        hideButton.style.display = "none";
+       
+      }
+      else
+      {
+        var hideButton = document.getElementById("container");
+      
+        hideButton.innerHTML = "";
+        retrieveMeaning(word);
+        userInput.value=" ";
+      }
+  });
 
-        <div class="history-card-heading">word: ${oldSearch.word}
-        </div>
-        <div class="history-card-sub-heading">
-            ${JSON.stringify(oldSearch.meaning)}
-        </div>
-       </div>`
-        })
+  userInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); 
 
-        showingHistory = true;
+      var word = userInput.value;
+      if(word=="")
+      {
+        var hideButton = document.getElementById("container");
+      
+        hideButton.style.display = "none";
+      }
+      else
+      {
+        var hideButton = document.getElementById("container");
+      
+        hideButton.innerHTML = "";
+       
+        retrieveMeaning(word);
+        userInput.value=" ";
+        
+      }
+      
     }
+  });
+
+});
+
+function retrieveMeaning(word) {
+  fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + word)
+    .then(response=>response.json())
+    .then(data => {
+      var meaning = data[0].meanings[0].definitions[0].definition;
+      createCard(word,meaning);
+      var cardData = {
+        word: word,
+        meaning: meaning
+    };
+    
+    var existingCards = localStorage.getItem("cards");
+    var cards = existingCards ? JSON.parse(existingCards) : [];
+    cards.push(cardData);
+    localStorage.setItem("cards", JSON.stringify(cards));
+    })
+    .catch(error => {
+      window.alert("Check spelling or give me a correct word!!");
+    });
 }
-const searchWordHandler = () => {
-    const searchWord = document.getElementById('search-word-input').value
-    if (searchWord) {
-        fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + searchWord)
-            .then(response => response.json())
-            .then(jsonReponse => {
-                let oldValue = localStorage.getItem('search-word-experiment')
+function createCard(word, meaning) {
+  var container = document.getElementById('container');
+  var newDiv = document.createElement('div');
+  newDiv.classList.add('card');
+  //newDiv.style.width = "300px";
+ // newDiv.style.height = "220px";
+  //newDiv.style.backgroundColor = "rgb(169, 169, 169)";
+  newDiv.style.color = "black";
+  newDiv.style.padding = "10px";
+  newDiv.style.padding = "10px";
+  newDiv.style.left = "32%";
+  //newDiv.style.position = "fixed";
+  var heading = document.createElement('h2');
+  heading.textContent = "WORD: " + word;
+ 
+  var details = document.createElement("div");
+  details.classList.add("details");
+  details.style.padding = "10px";
+  details.style.fontFamily = "Arial";
+  details.style.fontSize = "14px"; 
 
-                if (oldValue) {
-                    oldValue = JSON.parse(oldValue)
-                } else {
-                    oldValue = []
-                }
+  var paragraph = document.createElement('p');
+  paragraph.textContent = meaning; 
+  //paragraph.style.fontFamily=""
 
-                oldValue.push({
-                    word: searchWord,
-                    meaning: jsonReponse,
-                })
-                localStorage.setItem('search-word-experiment', JSON.stringify(oldValue))
-                const resultDiv = document.getElementById('result')
-                if (Array.isArray(jsonReponse)) {
-                    resultDiv.innerHTML = `<div class="history-card">
-                                                            <div class="history-card-heading">word: ${searchWord}
-                                                            </div>
-                                                            <div class="history-card-sub-heading">
-                                                                ${JSON.stringify(jsonReponse[0].meanings)}
-                                                            </div>      
-                                                        </div>`
-                } else {
-
-                    resultDiv.innerHTML = "unknown word"
-                }
-
-            }).catch((e) => {
-                console.error(e)
-            })
-
-    }
-
+  details.appendChild(heading);
+  details.appendChild(paragraph);
+  newDiv.appendChild(details);
+  container.appendChild(newDiv);
 }
+
+
+
