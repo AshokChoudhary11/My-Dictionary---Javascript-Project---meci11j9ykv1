@@ -27,6 +27,8 @@ function homePage() {
         displayCards(filteredCards);
       }
     });
+    
+
     var searchcards=document.getElementById('search3rd');
     searchcards.addEventListener("click", function() {
       var searchValue = searchInput.value.toLowerCase();
@@ -42,6 +44,7 @@ function homePage() {
         displayCards(filteredCards);
       }
     });
+    
   
     function displayCards(cards) {
       cardContainer.innerHTML = "";
@@ -91,5 +94,12 @@ function homePage() {
         cardContainer.appendChild(newDiv);
       });
     }
+  });
+  function clearHistory(){
+    window.location.href = "history.html";
+  }
+  document.getElementById("clearhistory").addEventListener("click", function () {
+    localStorage.removeItem("cards");
+    document.getElementById("card-container").innerHTML = "";
   });
   

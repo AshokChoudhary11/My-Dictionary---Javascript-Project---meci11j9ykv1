@@ -34,7 +34,8 @@ main h1{
     width: 350px;
     height: 40px;
     border-radius: 20px;
-    background-color: gray;
+    background-color: white;
+    cursor: pointer;
 }
 .second
 {
@@ -88,11 +89,15 @@ label{
 #search2nd
 {
     width:150px;
-    height: 60px;
-    font-size: 30px;
+    height: 40px;
+    font-size: 20px;
     margin-left:200px ;
+    justify-content: center;
 }
 #search3rd{
+    margin-bottom: 15px;
+}
+#clearhistory{
     margin-bottom: 15px;
 }
 
@@ -134,8 +139,9 @@ label{
     width:200px;
     height: 40px;
     border-radius: 20px;
-    background-color: gray;
+    background-color: white;
     margin-bottom: 15px;margin-right: 10px;
+    color: black;
     
   }
   .card {

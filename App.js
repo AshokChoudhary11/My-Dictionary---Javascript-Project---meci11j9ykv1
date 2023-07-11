@@ -73,20 +73,16 @@ function retrieveMeaning(word) {
     })
     .catch(error => {
       window.alert("Check spelling or give me a correct word!!");
-    });
+    }); 
 }
 function createCard(word, meaning) {
   var container = document.getElementById('container');
   var newDiv = document.createElement('div');
   newDiv.classList.add('card');
-  //newDiv.style.width = "300px";
- // newDiv.style.height = "220px";
-  //newDiv.style.backgroundColor = "rgb(169, 169, 169)";
   newDiv.style.color = "black";
   newDiv.style.padding = "10px";
   newDiv.style.padding = "10px";
   newDiv.style.left = "32%";
-  //newDiv.style.position = "fixed";
   var heading = document.createElement('h2');
   heading.textContent = "WORD: " + word;
  
@@ -98,7 +94,6 @@ function createCard(word, meaning) {
 
   var paragraph = document.createElement('p');
   paragraph.textContent = meaning; 
-  //paragraph.style.fontFamily=""
 
   details.appendChild(heading);
   details.appendChild(paragraph);
