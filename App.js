@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var hideButton = document.getElementById("container");
       
         hideButton.style.display = "none";
+        alert("please write word");
        
       }
       else
@@ -72,12 +73,14 @@ function retrieveMeaning(word) {
     localStorage.setItem("cards", JSON.stringify(cards));
     })
     .catch(error => {
-      window.alert("Check spelling or give me a correct word!!");
+      alert("Check spelling or give me a correct word!!");
     }); 
 }
 function createCard(word, meaning) {
   var container = document.getElementById('container');
   var newDiv = document.createElement('div');
+  var div2 = document.createElement("div");
+  div2.innerHTML = "word count "+ word.length;
   newDiv.classList.add('card');
   newDiv.style.color = "black";
   newDiv.style.padding = "10px";
@@ -96,6 +99,7 @@ function createCard(word, meaning) {
   paragraph.textContent = meaning; 
 
   details.appendChild(heading);
+  details.appendChild(div2)
   details.appendChild(paragraph);
   newDiv.appendChild(details);
   container.appendChild(newDiv);

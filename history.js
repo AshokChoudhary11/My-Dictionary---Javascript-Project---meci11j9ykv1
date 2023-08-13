@@ -45,6 +45,7 @@ function homePage() {
       }
     });
     
+    
   
     function displayCards(cards) {
       cardContainer.innerHTML = "";
@@ -54,7 +55,7 @@ function homePage() {
         newDiv.classList.add('card');
         newDiv.style.width = "300px";
         newDiv.style.height = "220px";
-        newDiv.style.backgroundColor = "rgb(169, 169, 169)";
+        // newDiv.style.backgroundColor = "rgb(169, 169, 169)";
         newDiv.style.color = "black";
         newDiv.style.padding = "10px";
         newDiv.style.position = "relative";
@@ -94,12 +95,5 @@ function homePage() {
         cardContainer.appendChild(newDiv);
       });
     }
-  });
-  function clearHistory(){
-    window.location.href = "history.html";
-  }
-  document.getElementById("clearhistory").addEventListener("click", function () {
-    localStorage.removeItem("cards");
-    document.getElementById("card-container").innerHTML = "";
   });
   
